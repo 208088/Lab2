@@ -54,6 +54,7 @@ public class SpellCheckerController {
     		d=new EnglishDictionary();
     	else d= new ItalianDictionary();
     	d.loadDictionary();
+    	
     	int err=0;
     	long time=System.nanoTime();
     	List<RichWord> lista = d.spellCheckText(d.getListSpell(txttesto.getText()));
@@ -63,23 +64,27 @@ public class SpellCheckerController {
     		Text z= new Text(r.getParola()+ " ");
 			if(!r.isCorretta()) {
 				z.setFill(Color.RED);
-			
 				err++;
 		     }  
 			else z.setFill(Color.BLACK);
 				
-    	txtcorretto.getChildren().add(z);
-    }
-    	  
-    	txtcorretto.setVisible(true);
+    	    txtcorretto.getChildren().add(z);
+            }
+    	
+    	Text t=new Text ("\n");
+    	txtcorretto.getChildren().add(t);  
+    	
     	lblerr.setText(String.format("Numero di errori: %d", err));
-	String c= String.valueOf((double)((time1-time)/1000000000));
-    lblcompletamento.setText("Spell check completed in :"+ c+"s");
+    	double tempo= (double)((double)(time1-time)/1000000000);
+	String c= String.valueOf(tempo);
+    lblcompletamento.setText("Spell check completed in :"+ c+"seconds");
     }
 
     @FXML
     void doClear(ActionEvent event) {
-
+     txttesto.clear();
+     txtcorretto.getChildren().clear();
+     
     }
 
     @FXML
